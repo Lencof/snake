@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*
 
-import argparse
-import os
+import argparse # use argparse
+import os # use os
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -10,6 +10,7 @@ import numpy as np
 COLOR_LEGEND_EDGE = (0 / 255, 0 / 255, 0 / 255)
 BAR_WIDTH = 0.24
 
+# create LEBELS_EN
 LABELS_EN = {
     "learn_step": "Learning Step (1e4)",
     "snake_len": "Average Snake Length",
@@ -21,6 +22,7 @@ LABELS_EN = {
     "relative": "Relative", 
 }
 
+# create LEBELS_2H
 LABELS_ZH = {
     "learn_step": "迭代次数 (1e4)",
     "snake_len": "蛇的平均长度",
@@ -32,7 +34,7 @@ LABELS_ZH = {
     "relative": "相对", 
 }
 
-LABELS = LABELS_EN
+LABELS = LABELS_EN # assignment
 
 parser = argparse.ArgumentParser(description="Plot dqn performance comparation graphs.")
 parser.add_argument("path", help="Path to history data directory")
@@ -45,7 +47,7 @@ if args.zh:
     plt.rcParams['font.sans-serif'] = ['SimHei']
     plt.rcParams['axes.unicode_minus'] = False
 
-
+# create def plot_one
 def plot_one(file_path, legend_name, interval=5000):
     data = np.load(file_path)
     x = (np.arange(data.size) + 1)[::interval] / 1e4
@@ -53,14 +55,14 @@ def plot_one(file_path, legend_name, interval=5000):
     plt.plot(x, y, label=legend_name)
     return np.max(data)
 
-
+# create def add_decorations
 def add_decorations(y_label):
     plt.xlabel(LABELS["learn_step"])
     plt.ylabel(LABELS[y_label])
     plt.grid(linestyle="--", linewidth=0.5)
     plt.legend(loc="lower right", fancybox=False, edgecolor=COLOR_LEGEND_EDGE)
 
-
+# create def make_bar
 def make_bar(x, heights, side, color):
     if side == "l":
         xs = x - BAR_WIDTH / 2.
@@ -74,8 +76,9 @@ def make_bar(x, heights, side, color):
         plt.text(bar.get_x() + bar.get_width() / 2., h,
                  "%.2f" % h, ha='center', va='bottom')
 
-    return bars
+    return bars # repeat
 
+# create legends
 legends = [
     "%s+%s" % (LABELS["global"], LABELS["absolute"]),
     "%s+%s" % (LABELS["global"], LABELS["relative"]),
@@ -163,4 +166,4 @@ plt.ylabel(LABELS["max"])
 plt.legend((bar_len[0], bar_step[0]), (LABELS["snake_len"], LABELS["snake_step"]),
            loc="lower right", fancybox=False, edgecolor=COLOR_LEGEND_EDGE)
 
-plt.show()
+plt.show() # close
