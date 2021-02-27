@@ -2,16 +2,18 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=C0103,C0111
 
-import argparse
+import argparse # use argparse
 
 from snake.game import Game, GameConf, GameMode
 
+# create dict_solver
 dict_solver = {
     "greedy": "GreedySolver",
     "hamilton": "HamiltonSolver",
     "dqn": "DQNSolver",
 }
 
+# create dict_mode
 dict_mode = {
     "normal": GameMode.NORMAL,
     "bcmk": GameMode.BENCHMARK,
